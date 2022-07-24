@@ -1,5 +1,7 @@
 package com.timanov.SpringSecurity.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,19 +17,28 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter @Setter
     private Long id;
 
     @Min(2)
     @Max(10)
+    @Getter
+    @Setter
     private String username;
 
     @Min(2)
     @Max(10)
+    @Getter
+    @Setter
     private String password;
 
+    @Getter
+    @Setter
     @Transient
     private String passwordConfirm;
 
+    @Getter
+    @Setter
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
@@ -35,31 +46,9 @@ public class User implements UserDetails {
 
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     @Override
@@ -82,23 +71,4 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 }
